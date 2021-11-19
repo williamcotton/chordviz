@@ -8,7 +8,8 @@ const assert = require("assert");
 const request = require("supertest");
 const appFactory = require("../server.js");
 const dbName = "test.db";
-const { app, close } = appFactory({ dbName });
+const port = 3120;
+const { app, close } = appFactory({ dbName, port });
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database(dbName);
 

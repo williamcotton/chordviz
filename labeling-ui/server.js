@@ -7,37 +7,56 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const sqlite3 = require("sqlite3").verbose();
+const React = require("react");
+const ReactDOMServer = require("react-dom/server");
 
-const appFactory = ({ dbName }) => {
+require("node-jsx").install();
+
+const App = require("./components/app.jsx");
+
+const template = (app) => `
+<html>
+  <head>
+    <title>Labels</title>
+  </head>
+  <body>
+    <div id="app">${app}</div>
+    <script src="app.js"></script>
+  </body>
+</html>
+`;
+
+const appFactory = ({ dbName, port }) => {
   const db = new sqlite3.Database(dbName);
+
+  app.use(express.static("public"));
 
   app.use(bodyParser.json());
 
+  app.get("/", function (req, res) {
+    const html = ReactDOMServer.renderToString(React.createElement(App, null));
+    res.send(template(html));
+  });
+
   app.post("/", async function (req, res) {
-    const filename = req.body.filename;
-    const chord = req.body.chord;
-    const tablature = req.body.tablature;
-    const inTransition = req.body.inTransition;
-    const capoPosition = req.body.capoPosition;
+    const { filename, chord, tablature, inTransition, capoPosition } = req.body;
 
     await db.serialize(async function () {
       await db.run(
         "CREATE TABLE IF NOT EXISTS labels (filename TEXT, chord TEXT, tablature TEXT, inTransition BOOLEAN, capoPosition INTEGER)"
       );
-      await db.run("INSERT OR REPLACE INTO labels VALUES (?, ?, ?, ?, ?)", [
-        filename,
-        chord,
-        tablature,
-        inTransition,
-        capoPosition,
-      ]);
+      const values = [filename, chord, tablature, inTransition, capoPosition];
+      await db.run(
+        "INSERT OR REPLACE INTO labels VALUES (?, ?, ?, ?, ?)",
+        values
+      );
     });
 
     res.send("ok");
   });
 
-  const server = app.listen(3000, function () {
-    console.log("Labels server listening on port 3000");
+  const server = app.listen(port, function () {
+    console.log(`Labels server listening on port ${port}`);
   });
 
   async function close() {
