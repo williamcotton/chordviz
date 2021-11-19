@@ -19,6 +19,10 @@ image | chord | tablature | in transition | capo position
 2.png | A | [5, 4, 2, 2, 5, 5] | no | 2
 3.png | B | [7, 6, 4, 4, 7, 7] | no | 4
 
+# chord progression
+
+I-IV-V-IV-I-V-I
+
 # list of keys, capo positions, and chord shapes
 []: G | 0 | G
 []: A | 0 | A
