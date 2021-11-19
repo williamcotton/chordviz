@@ -6,7 +6,7 @@ it checks that a row was added to the labels table with the correct values
 
 const assert = require("assert");
 const request = require("supertest");
-const appFactory = require("../server.js");
+const appFactory = require("../src/server.js");
 const dbName = "test.db";
 const port = 3120;
 const { app, close } = appFactory({ dbName, port });

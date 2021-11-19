@@ -8,16 +8,17 @@ const app = express();
 const bodyParser = require("body-parser");
 const sqlite3 = require("sqlite3").verbose();
 const React = require("react");
+const path = require("path");
 const ReactDOMServer = require("react-dom/server");
 
 require("node-jsx").install();
 
-const App = require("./components/app.jsx");
+const App = require("./app.jsx");
 
 const template = (app) => `
 <html>
   <head>
-    <title>Labels</title>
+    <title>Chordviz Labeler</title>
   </head>
   <body>
     <div id="app">${app}</div>
@@ -29,7 +30,7 @@ const template = (app) => `
 const appFactory = ({ dbName, port }) => {
   const db = new sqlite3.Database(dbName);
 
-  app.use(express.static("public"));
+  app.use(express.static(path.join(__dirname, "../public")));
 
   app.use(bodyParser.json());
 
@@ -56,7 +57,7 @@ const appFactory = ({ dbName, port }) => {
   });
 
   const server = app.listen(port, function () {
-    console.log(`Labels server listening on port ${port}`);
+    console.log(`Chordviz Labeler (${port})`);
   });
 
   async function close() {

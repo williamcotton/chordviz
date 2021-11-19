@@ -1,0 +1,32 @@
+{
+  "name": "chordviz-labeler",
+  "version": "0.0.1",
+  "description": "Chordviz Labeler",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "nodemon --watch 'src/**' --ext 'js,jsx,json' --exec 'node src/index.js'",
+    "build": "webpack --watch"
+  },
+  "keywords": [
+    "chordviz",
+    "labeler",
+    "ml"
+  ],
+  "author": "William Cotton",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsx-loader": "^0.13.2",
+    "mocha": "^9.1.3",
+    "node-jsx": "^0.13.3",
+    "nodemon": "^2.0.15",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sqlite3": "^5.0.2",
+    "supertest": "^6.1.6",
+    "webpack": "^5.64.1",
+    "webpack-cli": "^4.9.1"
+  }
+}

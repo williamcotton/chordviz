@@ -3,9 +3,9 @@
 Capture video of playing guitar chords
 
 What guitar chords?
-  I-IV-V (major)
-  Open chords
-  Various capo positions
+I-IV-V (major)
+Open chords
+Various capo positions
 
 Convert video to images
 
@@ -13,8 +13,8 @@ For each image, identify the chord or the targeted chord in transition
 
 Further, convert the chord to tablature
 
-image | chord | tablature | in transition | capo position
--------------------------------------------
+## image | chord | tablature | in transition | capo position
+
 1.png | G | [3, 2, 0, 0, 3, 3] | yes | 0
 2.png | A | [5, 4, 2, 2, 5, 5] | no | 2
 3.png | B | [7, 6, 4, 4, 7, 7] | no | 4
@@ -24,6 +24,7 @@ image | chord | tablature | in transition | capo position
 I-IV-V-IV-I-V-I
 
 # list of keys, capo positions, and chord shapes
+
 []: G | 0 | G
 []: A | 0 | A
 []: E | 0 | E
@@ -55,31 +56,34 @@ I-IV-V-IV-I-V-I
 []: E | 4 | C
 
 # chord shapes
-G: 
-  I: [3, 2, 0, 0, 3, 3]
-  IV: [X, 3, 2, 0, 1, 0]
-  V: [X, 0, 0, 2, 3, 2]
-A: 
-  I: [0, 0, 2, 2, 2, 0]
-  IV: [X, 0, 0, 2, 3, 2]
-  V: [0, 2, 2, 1, 0, 0]
+
+G:
+I: [3, 2, 0, 0, 3, 3]
+IV: [X, 3, 2, 0, 1, 0]
+V: [X, 0, 0, 2, 3, 2]
+A:
+I: [0, 0, 2, 2, 2, 0]
+IV: [X, 0, 0, 2, 3, 2]
+V: [0, 2, 2, 1, 0, 0]
 E:
-  I: [0, 2, 2, 1, 0, 0]
-  IV: [0, 0, 2, 2, 2, 0]
-  V: [2, 2, 4, 4, 4, X]
-D: 
-  I: [X, 0, 0, 2, 3, 2]
-  IV: [3, 2, 0, 0, 3, 3]
-  V: [0, 0, 2, 2, 2, 0]
-C: 
-  I: [X, 3, 2, 0, 1, 0]
-  IV: [1, 3, 3, 2, 1, 1]
-  V: [3, 2, 0, 0, 3, 3]
+I: [0, 2, 2, 1, 0, 0]
+IV: [0, 0, 2, 2, 2, 0]
+V: [2, 2, 4, 4, 4, X]
+D:
+I: [X, 0, 0, 2, 3, 2]
+IV: [3, 2, 0, 0, 3, 3]
+V: [0, 0, 2, 2, 2, 0]
+C:
+I: [X, 3, 2, 0, 1, 0]
+IV: [1, 3, 3, 2, 1, 1]
+V: [3, 2, 0, 0, 3, 3]
 
 # musical keys
+
 [C, C#, D, D#, E, F, F#, G, G#, A, A#, B]
 
 # Roman numeral chords
+
 [0, I, IV, V] = [0, 5, 7]
 [1, I, IV, V] = [1, 6, 8]
 [2, I, IV, V] = [2, 7, 9]

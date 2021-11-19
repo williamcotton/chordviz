@@ -3,7 +3,7 @@ const webpack = require("webpack");
 
 module.exports = {
   mode: "development",
-  entry: "./browser.js",
+  entry: "./src/browser.js",
   module: {
     rules: [
       {
@@ -15,9 +15,6 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".jsx"],
-    fallback: {
-      util: require.resolve("util/"),
-    },
   },
   output: {
     filename: "app.js",
