@@ -1,2 +1,4 @@
 image_data/
 video_data/
+*.db
+node_modules/
