@@ -32,7 +32,7 @@ describe("server.js", function () {
     } catch (err) {}
   });
 
-  describe("POST /", () => {
+  describe("POST /label", () => {
     it("should add a row to the labels table", async () => {
       const label = {
         filename: "video_0_frame_232.jpg",
@@ -41,7 +41,10 @@ describe("server.js", function () {
         inTransition: false,
         capoPosition: 0,
       };
-      const response = await request(app).post("/").send(label).expect(200);
+      const response = await request(app)
+        .post("/label")
+        .send(label)
+        .expect(200);
       const result = await query("SELECT * FROM labels");
       assert.equal(result[0].filename, label.filename);
       assert.equal(result[0].chord, label.chord);

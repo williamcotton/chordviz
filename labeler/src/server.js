@@ -39,7 +39,7 @@ const appFactory = ({ dbName, port }) => {
     res.send(template(html));
   });
 
-  app.post("/", async function (req, res) {
+  app.post("/label", async function (req, res) {
     const { filename, chord, tablature, inTransition, capoPosition } = req.body;
 
     await db.serialize(async function () {
@@ -53,7 +53,7 @@ const appFactory = ({ dbName, port }) => {
       );
     });
 
-    res.send("ok");
+    res.json({ success: true });
   });
 
   const server = app.listen(port, function () {
