@@ -34,6 +34,14 @@ function chordFromCapoPositionAndChordShape(
   return chord;
 }
 
+function fetchImages() {
+  return fetch("/images").then((response) => response.json());
+}
+
+function fetchLabeledImageByFilename(filename) {
+  return fetch(`/label/${filename}`).then((response) => response.json());
+}
+
 const onLabel = async ({
   filename,
   chord,
@@ -82,17 +90,23 @@ function ChordShapesDropdown({ chordShapes, onChange, selected }) {
 }
 
 function Labeler({ onLabel }) {
-  const [filename, setFilename] = useState("");
   const [chord, setChord] = useState("");
   const [chordShape, setChordShape] = useState("g");
   const [tablature, setTablature] = useState([]);
   const [inTransition, setInTransition] = useState(false);
   const [capoPosition, setCapoPosition] = useState(0);
+  const [images, setImages] = useState([]);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [currentLabeledImage, setCurrentLabeledImage] = useState(null);
+
+  const currentImageFilename = images[currentImage] || "";
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     const response = await onLabel({
-      filename,
+      filename: currentImageFilename,
       chord,
       tablature,
       inTransition,
@@ -104,72 +118,101 @@ function Labeler({ onLabel }) {
   useEffect(() => {
     hotkeys.unbind();
 
-    hotkeys("1", () =>
-      setChord(chordFromCapoPositionAndChordShape(0, capoPosition, chordShape))
-    );
+    hotkeys("1", () => {
+      setChord(chordFromCapoPositionAndChordShape(0, capoPosition, chordShape));
+      handleSubmit();
+    });
 
-    hotkeys("4", () =>
-      setChord(chordFromCapoPositionAndChordShape(5, capoPosition, chordShape))
-    );
+    hotkeys("4", () => {
+      setChord(chordFromCapoPositionAndChordShape(5, capoPosition, chordShape));
+      handleSubmit();
+    });
 
-    hotkeys("5", () =>
-      setChord(chordFromCapoPositionAndChordShape(7, capoPosition, chordShape))
-    );
+    hotkeys("5", () => {
+      setChord(chordFromCapoPositionAndChordShape(7, capoPosition, chordShape));
+      handleSubmit();
+    });
 
-    hotkeys("t", () =>
-      setInTransition((prevInTransition) => !prevInTransition)
+    hotkeys("t", () => setInTransition(!inTransition));
+
+    hotkeys("left", () => {
+      if (currentImage > 0) {
+        setCurrentImage(currentImage - 1);
+      }
+    });
+
+    hotkeys("right", () => {
+      if (currentImage < images.length - 1) {
+        setCurrentImage(currentImage + 1);
+      }
+    });
+  }, [chordShape, capoPosition, inTransition, currentImage, images]);
+
+  useEffect(() => {
+    fetchImages().then((images) => setImages(images));
+  }, []);
+
+  useEffect(() => {
+    if (!currentImageFilename) {
+      return;
+    }
+    fetchLabeledImageByFilename(currentImageFilename).then((labeledImage) =>
+      setCurrentLabeledImage(labeledImage)
     );
-  }, [chordShape, capoPosition, inTransition]);
+  }, [currentImageFilename]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Filename:
-        <input
-          type="text"
-          value={filename}
-          onChange={(event) => setFilename(event.target.value)}
-        />
-      </label>
-      <label>
-        Chord Shape:
-        <ChordShapesDropdown
-          chordShapes={chordShapes}
-          onChange={(value) => setChordShape(value)}
-          selected={chordShape}
-        />
-      </label>
-      <label>
-        Tablature:
-        <input
-          type="text"
-          value={tablature}
-          onChange={(event) => setTablature(event.target.value)}
-        />
-      </label>
-      <label>
-        In Transition:
-        <input
-          type="checkbox"
-          checked={inTransition}
-          onChange={(event) => setInTransition(event.target.checked)}
-        />
-      </label>
-      <label>
-        Capo Position:
-        <input
-          type="number"
-          value={capoPosition}
-          onChange={(event) =>
-            setCapoPosition(parseInt(event.target.value, 10))
-          }
-        />
-      </label>
-      <div>
-        Chord: <span>{chord}</span>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <img src={currentImageFilename} />
+      <form onSubmit={handleSubmit}>
+        <label>
+          Filename:
+          <input
+            type="text"
+            value={currentImageFilename}
+            style={{ width: "300px" }}
+          />
+        </label>
+        <label>
+          Chord Shape:
+          <ChordShapesDropdown
+            chordShapes={chordShapes}
+            onChange={(value) => setChordShape(value)}
+            selected={chordShape}
+          />
+        </label>
+        <label>
+          Tablature:
+          <input
+            type="text"
+            value={tablature}
+            onChange={(event) => setTablature(event.target.value)}
+          />
+        </label>
+        <label>
+          In Transition:
+          <input
+            type="checkbox"
+            checked={inTransition}
+            onChange={(event) => setInTransition(event.target.checked)}
+          />
+        </label>
+        <label>
+          Capo Position:
+          <input
+            type="number"
+            value={capoPosition}
+            onChange={(event) =>
+              setCapoPosition(parseInt(event.target.value, 10))
+            }
+          />
+        </label>
+        <div>
+          Chord: <span>{chord}</span>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 }
 

@@ -15,7 +15,21 @@ require("node-jsx").install();
 
 const App = require("./app.jsx");
 
-const template = (app) => `
+function listOfFilesInDirectory(dir) {
+  return new Promise((resolve, reject) => {
+    const fs = require("fs");
+    fs.readdir(dir, (err, files) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(files);
+    });
+  });
+}
+
+const images = listOfFilesInDirectory(path.join(__dirname, "../../image_data"));
+
+const template = async (app) => `
 <html>
   <head>
     <title>Chordviz Labeler</title>
@@ -30,13 +44,38 @@ const template = (app) => `
 const appFactory = ({ dbName, port }) => {
   const db = new sqlite3.Database(dbName);
 
+  const query = async (query) => {
+    return new Promise((resolve, reject) => {
+      db.all(query, (err, rows) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(rows);
+      });
+    });
+  };
+
   app.use(express.static(path.join(__dirname, "../public")));
+
+  app.use(express.static(path.join(__dirname, "../../image_data")));
 
   app.use(bodyParser.json());
 
-  app.get("/", function (req, res) {
+  app.get("/", async function (req, res) {
     const html = ReactDOMServer.renderToString(React.createElement(App, null));
-    res.send(template(html));
+    res.send(await template(html));
+  });
+
+  app.get("/images", async function (req, res) {
+    res.send(JSON.stringify(await images));
+  });
+
+  app.get("/label/:filename", async function (req, res) {
+    const filename = req.params.filename;
+    const labeledImage = await query(
+      `SELECT * FROM labels WHERE filename = "${filename}"`
+    );
+    res.send(JSON.stringify(labeledImage));
   });
 
   app.post("/label", async function (req, res) {
