@@ -1,3 +1,4 @@
+.DS_Store
 image_data/
 video_data/
 *.db

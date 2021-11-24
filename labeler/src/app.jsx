@@ -5,6 +5,36 @@ const { useState, useEffect } = React;
 
 const chordShapes = ["g", "c", "d", "e", "a"];
 
+const X = null;
+
+const chordShapeTablature = {
+  g: {
+    1: [3, 2, 0, 0, 3, 3], // G
+    4: [X, 3, 2, 0, 1, 0], // C
+    5: [X, 0, 0, 2, 3, 2], // D
+  },
+  c: {
+    1: [X, 3, 2, 0, 1, 0], // C
+    4: [1, 3, 3, 2, 1, 1], // F
+    5: [3, 2, 0, 0, 3, 3], // G
+  },
+  d: {
+    1: [X, 0, 0, 2, 3, 2], // D
+    4: [3, 2, 0, 0, 3, 3], // G
+    5: [0, 0, 2, 2, 2, 0], // A
+  },
+  e: {
+    1: [0, 2, 2, 1, 0, 0], // E
+    4: [0, 0, 2, 2, 2, 0], // A
+    5: [2, 2, 4, 4, 4, X], // B
+  },
+  a: {
+    1: [0, 0, 2, 2, 2, 0], // A
+    4: [X, 0, 0, 2, 3, 2], // D
+    5: [0, 2, 2, 1, 0, 0], // E
+  },
+};
+
 const musicScale = [
   "c",
   "c#",
@@ -89,6 +119,18 @@ function ChordShapesDropdown({ chordShapes, onChange, selected }) {
   );
 }
 
+function setCookie(name, value) {
+  document.cookie = `${name}=${value}; path=/`;
+}
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return parts.pop().split(";").shift();
+  }
+}
+
 function Labeler({ onLabel }) {
   const [chord, setChord] = useState("");
   const [chordShape, setChordShape] = useState("g");
@@ -120,33 +162,36 @@ function Labeler({ onLabel }) {
 
     hotkeys("1", () => {
       setChord(chordFromCapoPositionAndChordShape(0, capoPosition, chordShape));
-      handleSubmit();
     });
 
     hotkeys("4", () => {
       setChord(chordFromCapoPositionAndChordShape(5, capoPosition, chordShape));
-      handleSubmit();
     });
 
     hotkeys("5", () => {
       setChord(chordFromCapoPositionAndChordShape(7, capoPosition, chordShape));
-      handleSubmit();
     });
 
     hotkeys("t", () => setInTransition(!inTransition));
 
     hotkeys("left", () => {
       if (currentImage > 0) {
+        setCookie("currentImage", currentImage - 1);
         setCurrentImage(currentImage - 1);
       }
     });
 
     hotkeys("right", () => {
       if (currentImage < images.length - 1) {
+        setCookie("currentImage", currentImage + 1);
         setCurrentImage(currentImage + 1);
       }
     });
-  }, [chordShape, capoPosition, inTransition, currentImage, images]);
+
+    hotkeys("enter", () => {
+      handleSubmit();
+    });
+  }, [chordShape, capoPosition, inTransition, currentImage, images, chord]);
 
   useEffect(() => {
     fetchImages().then((images) => setImages(images));
@@ -161,6 +206,22 @@ function Labeler({ onLabel }) {
     );
   }, [currentImageFilename]);
 
+  useEffect(() => {
+    // a regular expression to match capo_0_shape_A_1_frame_0.jpg
+    const regex = /capo_(\d+)_shape_([A-G])_.*.jpg/;
+    const match = regex.exec(currentImageFilename);
+
+    if (match) {
+      const [, capoPositionString, chordShape] = match;
+      setCapoPosition(parseInt(capoPositionString));
+      setChordShape(chordShape.toLowerCase());
+    }
+  }, [currentImageFilename]);
+
+  useEffect(() => {
+    setCurrentImage(parseInt(getCookie("currentImage"), 10) || 0);
+  }, []);
+
   return (
     <div>
       <img src={currentImageFilename} />
@@ -169,7 +230,7 @@ function Labeler({ onLabel }) {
           Filename:
           <input
             type="text"
-            value={currentImageFilename}
+            defaultValue={currentImageFilename}
             style={{ width: "300px" }}
           />
         </label>
