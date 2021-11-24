@@ -86,6 +86,7 @@ const appFactory = ({ dbName, port }) => {
         "CREATE TABLE IF NOT EXISTS labels (filename TEXT, chord TEXT, tablature TEXT, inTransition BOOLEAN, capoPosition INTEGER)"
       );
       const values = [filename, chord, tablature, inTransition, capoPosition];
+      await query(`DELETE FROM labels WHERE filename = "${filename}"`);
       await db.run(
         "INSERT OR REPLACE INTO labels VALUES (?, ?, ?, ?, ?)",
         values

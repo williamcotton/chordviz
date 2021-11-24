@@ -5,7 +5,7 @@ const { useState, useEffect } = React;
 
 const chordShapes = ["g", "c", "d", "e", "a"];
 
-const X = null;
+const X = "X";
 
 const chordShapeTablature = {
   g: {
@@ -34,6 +34,10 @@ const chordShapeTablature = {
     5: [0, 2, 2, 1, 0, 0], // E
   },
 };
+
+function tablatureInCapoPosition(tablature, capoPosition) {
+  return tablature.map((note) => (note === X ? note : note + capoPosition));
+}
 
 const musicScale = [
   "c",
@@ -147,51 +151,81 @@ function Labeler({ onLabel }) {
     if (event) {
       event.preventDefault();
     }
-    const response = await onLabel({
+    const labeledImage = {
       filename: currentImageFilename,
       chord,
       tablature,
       inTransition,
       capoPosition,
-    });
-    console.log(response);
+    };
+    const response = await onLabel(labeledImage);
+    if (response.success) {
+      setCurrentLabeledImage([labeledImage]);
+    }
   };
+
+  function nextCurrentImage() {
+    const nextCurrentImage = (currentImage + 1) % images.length;
+    setCookie("currentImage", nextCurrentImage);
+    setCurrentImage(nextCurrentImage);
+  }
+
+  function previousCurrentImage() {
+    const previousCurrentImage =
+      (currentImage - 1 + images.length) % images.length;
+    setCookie("currentImage", previousCurrentImage);
+    setCurrentImage(previousCurrentImage);
+  }
+
+  function toggleInTransition() {
+    setInTransition(!inTransition);
+  }
+
+  function setChordI() {
+    const tablature = tablatureInCapoPosition(
+      chordShapeTablature[chordShape][1],
+      capoPosition
+    );
+    setChord(chordFromCapoPositionAndChordShape(0, capoPosition, chordShape));
+    setTablature(tablature);
+  }
+
+  function setChordIV() {
+    const tablature = tablatureInCapoPosition(
+      chordShapeTablature[chordShape][4],
+      capoPosition
+    );
+    setChord(chordFromCapoPositionAndChordShape(5, capoPosition, chordShape));
+    setTablature(tablature);
+  }
+
+  function setChordV() {
+    const tablature = tablatureInCapoPosition(
+      chordShapeTablature[chordShape][5],
+      capoPosition
+    );
+    setChord(chordFromCapoPositionAndChordShape(7, capoPosition, chordShape));
+    setTablature(tablature);
+  }
 
   useEffect(() => {
     hotkeys.unbind();
-
-    hotkeys("1", () => {
-      setChord(chordFromCapoPositionAndChordShape(0, capoPosition, chordShape));
-    });
-
-    hotkeys("4", () => {
-      setChord(chordFromCapoPositionAndChordShape(5, capoPosition, chordShape));
-    });
-
-    hotkeys("5", () => {
-      setChord(chordFromCapoPositionAndChordShape(7, capoPosition, chordShape));
-    });
-
-    hotkeys("t", () => setInTransition(!inTransition));
-
-    hotkeys("left", () => {
-      if (currentImage > 0) {
-        setCookie("currentImage", currentImage - 1);
-        setCurrentImage(currentImage - 1);
-      }
-    });
-
-    hotkeys("right", () => {
-      if (currentImage < images.length - 1) {
-        setCookie("currentImage", currentImage + 1);
-        setCurrentImage(currentImage + 1);
-      }
-    });
-
-    hotkeys("enter", () => {
-      handleSubmit();
-    });
-  }, [chordShape, capoPosition, inTransition, currentImage, images, chord]);
+    hotkeys("1", setChordI);
+    hotkeys("4", setChordIV);
+    hotkeys("5", setChordV);
+    hotkeys("t", toggleInTransition);
+    hotkeys("left", previousCurrentImage);
+    hotkeys("right", nextCurrentImage);
+    hotkeys("enter", handleSubmit);
+  }, [
+    chordShape,
+    capoPosition,
+    inTransition,
+    currentImage,
+    images,
+    chord,
+    tablature,
+  ]);
 
   useEffect(() => {
     fetchImages().then((images) => setImages(images));
@@ -218,9 +252,10 @@ function Labeler({ onLabel }) {
     }
   }, [currentImageFilename]);
 
-  useEffect(() => {
-    setCurrentImage(parseInt(getCookie("currentImage"), 10) || 0);
-  }, []);
+  useEffect(
+    () => setCurrentImage(parseInt(getCookie("currentImage")) || 0),
+    []
+  );
 
   return (
     <div>
@@ -273,6 +308,9 @@ function Labeler({ onLabel }) {
         </div>
         <button type="submit">Submit</button>
       </form>
+      {currentLabeledImage && currentLabeledImage.length > 0 && (
+        <div>{JSON.stringify(currentLabeledImage)}</div>
+      )}
     </div>
   );
 }
