@@ -257,10 +257,37 @@ function Labeler({ onLabel }) {
     []
   );
 
+  const labeledImage = currentLabeledImage ? currentLabeledImage[0] : false;
+
   return (
     <div>
-      <h2>I-IV-V-IV-I-V-I</h2>
-      <img src={currentImageFilename} />
+      <div style={{ display: "flex" }}>
+        <img
+          src={currentImageFilename}
+          style={{
+            borderWidth: "5px",
+            borderStyle: "solid",
+            borderColor: labeledImage
+              ? labeledImage.inTransition
+                ? "yellow"
+                : "green"
+              : "black",
+          }}
+        />
+        <div>
+          {labeledImage && (
+            <div style={{ marginLeft: 30 }}>
+              <div style={{ fontSize: 40 }}>
+                Capo: {labeledImage.capoPosition}
+              </div>
+              <div style={{ fontSize: 40 }}>
+                {labeledImage.chord.toUpperCase()}
+              </div>
+              <div style={{ fontSize: 40 }}>{labeledImage.tablature}</div>
+            </div>
+          )}
+        </div>
+      </div>
       <form onSubmit={handleSubmit}>
         <label>
           Filename:
@@ -309,9 +336,6 @@ function Labeler({ onLabel }) {
         </div>
         <button type="submit">Submit</button>
       </form>
-      {currentLabeledImage && currentLabeledImage.length > 0 && (
-        <div>{JSON.stringify(currentLabeledImage)}</div>
-      )}
     </div>
   );
 }
