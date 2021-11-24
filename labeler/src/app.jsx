@@ -25,7 +25,7 @@ const chordShapeTablature = {
   },
   e: {
     1: [0, 2, 2, 1, 0, 0], // E
-    4: [0, 0, 2, 2, 2, 0], // A
+    4: [0, 0, 2, 2, 2, X], // A
     5: [2, 2, 4, 4, 4, X], // B
   },
   a: {
@@ -259,6 +259,7 @@ function Labeler({ onLabel }) {
 
   return (
     <div>
+      <h2>I-IV-V-IV-I-V-I</h2>
       <img src={currentImageFilename} />
       <form onSubmit={handleSubmit}>
         <label>
