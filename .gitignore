@@ -1,6 +1,5 @@
 .DS_Store
 image_data/
-video_data/
-*.db
+test.db
 node_modules/
 public/
