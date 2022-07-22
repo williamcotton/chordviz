@@ -97,7 +97,7 @@ const appFactory = ({ dbName, port }) => {
   });
 
   const server = app.listen(port, function () {
-    console.log(`Chordviz Labeler (${port})`);
+    console.log(`Chordviz Labeler (http://localhost:${port})`);
   });
 
   async function close() {

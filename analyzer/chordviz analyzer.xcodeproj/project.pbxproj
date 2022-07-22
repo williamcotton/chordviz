@@ -1,0 +1,582 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA971340288B0104006813B2 /* chordviz_analyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97133F288B0104006813B2 /* chordviz_analyzerApp.swift */; };
+		DA971342288B0104006813B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA971341288B0104006813B2 /* ContentView.swift */; };
+		DA971344288B0106006813B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA971343288B0106006813B2 /* Assets.xcassets */; };
+		DA971347288B0106006813B2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA971346288B0106006813B2 /* Preview Assets.xcassets */; };
+		DA971351288B0107006813B2 /* chordviz_analyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA971350288B0107006813B2 /* chordviz_analyzerTests.swift */; };
+		DA97135B288B0107006813B2 /* chordviz_analyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97135A288B0107006813B2 /* chordviz_analyzerUITests.swift */; };
+		DA97135D288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97135C288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA97134D288B0107006813B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA971334288B0104006813B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA97133B288B0104006813B2;
+			remoteInfo = "chordviz analyzer";
+		};
+		DA971357288B0107006813B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA971334288B0104006813B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA97133B288B0104006813B2;
+			remoteInfo = "chordviz analyzer";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DA97133C288B0104006813B2 /* chordviz analyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chordviz analyzer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA97133F288B0104006813B2 /* chordviz_analyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chordviz_analyzerApp.swift; sourceTree = "<group>"; };
+		DA971341288B0104006813B2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DA971343288B0106006813B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA971346288B0106006813B2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DA97134C288B0107006813B2 /* chordviz analyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "chordviz analyzerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA971350288B0107006813B2 /* chordviz_analyzerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chordviz_analyzerTests.swift; sourceTree = "<group>"; };
+		DA971356288B0107006813B2 /* chordviz analyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "chordviz analyzerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA97135A288B0107006813B2 /* chordviz_analyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chordviz_analyzerUITests.swift; sourceTree = "<group>"; };
+		DA97135C288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chordviz_analyzerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA971339288B0104006813B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA971349288B0107006813B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA971353288B0107006813B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA971333288B0104006813B2 = {
+			isa = PBXGroup;
+			children = (
+				DA97133E288B0104006813B2 /* chordviz analyzer */,
+				DA97134F288B0107006813B2 /* chordviz analyzerTests */,
+				DA971359288B0107006813B2 /* chordviz analyzerUITests */,
+				DA97133D288B0104006813B2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DA97133D288B0104006813B2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA97133C288B0104006813B2 /* chordviz analyzer.app */,
+				DA97134C288B0107006813B2 /* chordviz analyzerTests.xctest */,
+				DA971356288B0107006813B2 /* chordviz analyzerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA97133E288B0104006813B2 /* chordviz analyzer */ = {
+			isa = PBXGroup;
+			children = (
+				DA97133F288B0104006813B2 /* chordviz_analyzerApp.swift */,
+				DA971341288B0104006813B2 /* ContentView.swift */,
+				DA971343288B0106006813B2 /* Assets.xcassets */,
+				DA971345288B0106006813B2 /* Preview Content */,
+			);
+			path = "chordviz analyzer";
+			sourceTree = "<group>";
+		};
+		DA971345288B0106006813B2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DA971346288B0106006813B2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DA97134F288B0107006813B2 /* chordviz analyzerTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA971350288B0107006813B2 /* chordviz_analyzerTests.swift */,
+			);
+			path = "chordviz analyzerTests";
+			sourceTree = "<group>";
+		};
+		DA971359288B0107006813B2 /* chordviz analyzerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DA97135A288B0107006813B2 /* chordviz_analyzerUITests.swift */,
+				DA97135C288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift */,
+			);
+			path = "chordviz analyzerUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA97133B288B0104006813B2 /* chordviz analyzer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA971360288B0107006813B2 /* Build configuration list for PBXNativeTarget "chordviz analyzer" */;
+			buildPhases = (
+				DA971338288B0104006813B2 /* Sources */,
+				DA971339288B0104006813B2 /* Frameworks */,
+				DA97133A288B0104006813B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "chordviz analyzer";
+			productName = "chordviz analyzer";
+			productReference = DA97133C288B0104006813B2 /* chordviz analyzer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA97134B288B0107006813B2 /* chordviz analyzerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA971363288B0107006813B2 /* Build configuration list for PBXNativeTarget "chordviz analyzerTests" */;
+			buildPhases = (
+				DA971348288B0107006813B2 /* Sources */,
+				DA971349288B0107006813B2 /* Frameworks */,
+				DA97134A288B0107006813B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA97134E288B0107006813B2 /* PBXTargetDependency */,
+			);
+			name = "chordviz analyzerTests";
+			productName = "chordviz analyzerTests";
+			productReference = DA97134C288B0107006813B2 /* chordviz analyzerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DA971355288B0107006813B2 /* chordviz analyzerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA971366288B0107006813B2 /* Build configuration list for PBXNativeTarget "chordviz analyzerUITests" */;
+			buildPhases = (
+				DA971352288B0107006813B2 /* Sources */,
+				DA971353288B0107006813B2 /* Frameworks */,
+				DA971354288B0107006813B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA971358288B0107006813B2 /* PBXTargetDependency */,
+			);
+			name = "chordviz analyzerUITests";
+			productName = "chordviz analyzerUITests";
+			productReference = DA971356288B0107006813B2 /* chordviz analyzerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA971334288B0104006813B2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					DA97133B288B0104006813B2 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					DA97134B288B0107006813B2 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = DA97133B288B0104006813B2;
+					};
+					DA971355288B0107006813B2 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = DA97133B288B0104006813B2;
+					};
+				};
+			};
+			buildConfigurationList = DA971337288B0104006813B2 /* Build configuration list for PBXProject "chordviz analyzer" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA971333288B0104006813B2;
+			productRefGroup = DA97133D288B0104006813B2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA97133B288B0104006813B2 /* chordviz analyzer */,
+				DA97134B288B0107006813B2 /* chordviz analyzerTests */,
+				DA971355288B0107006813B2 /* chordviz analyzerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA97133A288B0104006813B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA971347288B0106006813B2 /* Preview Assets.xcassets in Resources */,
+				DA971344288B0106006813B2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA97134A288B0107006813B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA971354288B0107006813B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA971338288B0104006813B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA971342288B0104006813B2 /* ContentView.swift in Sources */,
+				DA971340288B0104006813B2 /* chordviz_analyzerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA971348288B0107006813B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA971351288B0107006813B2 /* chordviz_analyzerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA971352288B0107006813B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA97135B288B0107006813B2 /* chordviz_analyzerUITests.swift in Sources */,
+				DA97135D288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA97134E288B0107006813B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA97133B288B0104006813B2 /* chordviz analyzer */;
+			targetProxy = DA97134D288B0107006813B2 /* PBXContainerItemProxy */;
+		};
+		DA971358288B0107006813B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA97133B288B0104006813B2 /* chordviz analyzer */;
+			targetProxy = DA971357288B0107006813B2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DA97135E288B0107006813B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DA97135F288B0107006813B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA971361288B0107006813B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"chordviz analyzer/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamcotton.chordviz-analyzer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DA971362288B0107006813B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"chordviz analyzer/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamcotton.chordviz-analyzer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DA971364288B0107006813B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamcotton.chordviz-analyzerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/chordviz analyzer.app/chordviz analyzer";
+			};
+			name = Debug;
+		};
+		DA971365288B0107006813B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamcotton.chordviz-analyzerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/chordviz analyzer.app/chordviz analyzer";
+			};
+			name = Release;
+		};
+		DA971367288B0107006813B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamcotton.chordviz-analyzerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "chordviz analyzer";
+			};
+			name = Debug;
+		};
+		DA971368288B0107006813B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamcotton.chordviz-analyzerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "chordviz analyzer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA971337288B0104006813B2 /* Build configuration list for PBXProject "chordviz analyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA97135E288B0107006813B2 /* Debug */,
+				DA97135F288B0107006813B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA971360288B0107006813B2 /* Build configuration list for PBXNativeTarget "chordviz analyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA971361288B0107006813B2 /* Debug */,
+				DA971362288B0107006813B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA971363288B0107006813B2 /* Build configuration list for PBXNativeTarget "chordviz analyzerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA971364288B0107006813B2 /* Debug */,
+				DA971365288B0107006813B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA971366288B0107006813B2 /* Build configuration list for PBXNativeTarget "chordviz analyzerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA971367288B0107006813B2 /* Debug */,
+				DA971368288B0107006813B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA971334288B0104006813B2 /* Project object */;
+}

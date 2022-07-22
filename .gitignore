@@ -3,3 +3,4 @@ image_data/
 test.db
 node_modules/
 public/
+*.log

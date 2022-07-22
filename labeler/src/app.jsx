@@ -336,6 +336,44 @@ function Labeler({ onLabel }) {
         </div>
         <button type="submit">Submit</button>
       </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Command</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Set chord I</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Set chord IV</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Set chord V</td>
+          </tr>
+          <tr>
+            <td>t</td>
+            <td>Toggle in transition</td>
+          </tr>
+          <tr>
+            <td>left</td>
+            <td>Previous image</td>
+          </tr>
+          <tr>
+            <td>right</td>
+            <td>Next image</td>
+          </tr>
+          <tr>
+            <td>enter</td>
+            <td>Submit</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
