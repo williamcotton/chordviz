@@ -4,3 +4,4 @@ test.db
 node_modules/
 public/
 *.log
+*.pyc

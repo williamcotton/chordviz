@@ -24,3 +24,6 @@ train_model:
 
 eval_model:
 	python pytorch_model/eval_model.py
+
+predict:
+	python pytorch_model/predict.py

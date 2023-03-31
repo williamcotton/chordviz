@@ -4,7 +4,7 @@ import torch.nn as nn
 
 from guitar_tab_net import GuitarTabNet
 
-from training_and_validation import train_dataset, val_dataset
+from training_validation_testing_split import train_dataset, val_dataset
 
 device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
