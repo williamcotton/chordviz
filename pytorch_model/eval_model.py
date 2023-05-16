@@ -18,10 +18,12 @@ total = 0
 with torch.no_grad():
     for images, labels in test_loader:
         outputs = model(images)
-        predicted = (outputs > 0.5).float()
-        print(f"Predicted tablature: {predicted[0]}")
-        print(f"Actual tablature: {labels[0]}")
+        predicted = outputs.round()
         total += labels.size(0)
-        correct += (predicted == labels.float()).sum().item()
+        for pred, actual in zip(predicted, labels.float()):
+            print("\n")
+            print(f"Predicted tablature: {pred}")
+            print(f"Actual tablature: {actual}")
+            correct += torch.all(pred == actual).item()
 
 print("Accuracy of the model on the test images: {:.2f}%".format(100 * correct / total))
