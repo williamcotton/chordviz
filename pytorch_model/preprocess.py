@@ -13,21 +13,17 @@ def load_data(image_dir, db_file):
 
     for filename in os.listdir(image_dir):
         # Load the corresponding label
-        cursor.execute(
-            "SELECT tablature FROM labels WHERE filename=?", (filename,))
+        cursor.execute("SELECT tablature FROM labels WHERE filename=?", (filename,))
         fetched_row = cursor.fetchone()
         if fetched_row is None:
-            print(
-                f"Warning: No tablature found for {filename}. Skipping this file.")
+            print(f"Warning: No tablature found for {filename}. Skipping this file.")
             continue
         tablature_str = fetched_row[0]
-        tablature = [int(x) if x != 'X' else (-1)
-                     for x in tablature_str.split(',')]
+        tablature = [int(x) if x != "X" else (-1) for x in tablature_str.split(",")]
         labels.append(tablature)
 
         # Load the image
-        image = cv2.imread(os.path.join(
-            image_dir, filename), cv2.IMREAD_GRAYSCALE)
+        image = cv2.imread(os.path.join(image_dir, filename), cv2.IMREAD_GRAYSCALE)
         # Resize and normalize the image
         image = cv2.resize(image, (128, 128)) / 255.0
         images.append(image)

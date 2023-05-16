@@ -7,7 +7,7 @@ from training_validation_testing_split import test_dataset
 
 # Load the trained model
 model = GuitarTabNet()
-model.load_state_dict(torch.load('trained_guitar_tab_net.pth'))
+model.load_state_dict(torch.load("trained_guitar_tab_net.pth"))
 model.eval()
 
 test_loader = DataLoader(test_dataset, batch_size=16, shuffle=True)
@@ -24,5 +24,4 @@ with torch.no_grad():
         total += labels.size(0)
         correct += (predicted == labels.float()).sum().item()
 
-print('Accuracy of the model on the test images: {:.2f}%'.format(
-    100 * correct / total))
+print("Accuracy of the model on the test images: {:.2f}%".format(100 * correct / total))

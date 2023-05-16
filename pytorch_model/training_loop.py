@@ -9,7 +9,7 @@ from training_validation_testing_split import train_dataset, val_dataset
 device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
 model = GuitarTabNet().to(device)
-criterion = nn.MSELoss()
+criterion = nn.L1Loss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)

@@ -6,7 +6,7 @@ from guitar_tab_net import GuitarTabNet
 
 # Load the trained model
 model = GuitarTabNet()
-model.load_state_dict(torch.load('trained_guitar_tab_net.pth'))
+model.load_state_dict(torch.load("trained_guitar_tab_net.pth"))
 model.eval()
 
 
@@ -21,9 +21,8 @@ def predict(image_path):
     image_tensor = preprocess_image(image_path)
     with torch.no_grad():
         output = model(image_tensor)
-        predicted_tab = (output > 0.5).float()
-        tablature = [x.item() if x.item() != -
-                     1 else 'X' for x in predicted_tab[0]]
+        predicted_tab = output.round().int()
+        tablature = [x.item() if x.item() != -1 else "X" for x in predicted_tab[0]]
         return tablature
 
 
