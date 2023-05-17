@@ -1,7 +1,7 @@
 import torch
 from training_loop import train_loader, val_loader, model, criterion, optimizer, device
 
-num_epochs = 20
+num_epochs = 30
 
 # This is the main training loop.
 for epoch in range(num_epochs):
