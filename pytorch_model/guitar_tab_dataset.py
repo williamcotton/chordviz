@@ -14,6 +14,7 @@ class GuitarTabDataset(Dataset):
         image = self.images[idx]
         label = self.labels[idx]
 
+        # Convert the images and labels to PyTorch tensors.
         return torch.tensor(image, dtype=torch.float32), torch.tensor(
             label, dtype=torch.float32
         )

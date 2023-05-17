@@ -12,6 +12,7 @@ val_images, test_images, val_labels, test_labels = train_test_split(
     temp_images, temp_labels, test_size=0.5, random_state=42
 )
 
+# Use these splits to create PyTorch Dataset objects for each set.
 train_dataset = GuitarTabDataset(train_images, train_labels)
 val_dataset = GuitarTabDataset(val_images, val_labels)
 test_dataset = GuitarTabDataset(test_images, test_labels)
