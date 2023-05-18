@@ -6,3 +6,4 @@ public/
 *.log
 *.pyc
 *.mlmodel
+*.pyc
