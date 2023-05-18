@@ -25,9 +25,12 @@ with torch.no_grad():
         total += labels.size(0)
         for pred, actual in zip(predicted, labels.float()):
             print("\n")
-            print(f"Predicted tablature: {pred}")
-            print(f"Actual tablature: {actual}")
-            # If the predicted and actual chords are exactly the same, increment the correct count
+            print(f"Predicted tablature: {pred[:-2]}")
+            print(f"Predicted inTransition: {bool(pred[-2].item())}")
+            print(f"Predicted capoPosition: {pred[-1].item()}")
+            print(f"Actual tablature: {actual[:-2]}")
+            print(f"Actual inTransition: {bool(actual[-2].item())}")
+            print(f"Actual capoPosition: {actual[-1].item()}")
             correct += torch.all(pred == actual).item()
 
 print("Accuracy of the model on the test images: {:.2f}%".format(100 * correct / total))

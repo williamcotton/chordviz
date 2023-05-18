@@ -6,7 +6,7 @@ from guitar_tab_net import GuitarTabNet
 
 # Load the trained model
 model = GuitarTabNet()
-model.load_state_dict(torch.load("trained_guitar_tab_net.pth"))
+model.load_state_dict(torch.load("../trained_guitar_tab_net.pth"))
 model.eval()
 
 
@@ -22,16 +22,18 @@ def preprocess_image(image_path):
 
 
 def predict(image_path):
-    # Preprocess the image
     image_tensor = preprocess_image(image_path)
     with torch.no_grad():
-        # Run the image through the model to get a prediction
         output = model(image_tensor)
-        # Round the prediction to the nearest integer and convert to an integer tensor
         predicted_tab = output.round().int()
-        # Convert each element in the tensor to an integer (or "X" if the element is -1)
-        tablature = [x.item() if x.item() != -1 else "X" for x in predicted_tab[0]]
-        return tablature
+        tablature = [
+            x.item() if x.item() != -1 else "X" for x in predicted_tab[0][:-2]
+        ]  # Only take first 6 elements for tablature
+        in_transition = bool(
+            predicted_tab[0][-2].item()
+        )  # The second last element is inTransition
+        capo_position = predicted_tab[0][-1].item()  # The last element is capoPosition
+        return tablature, in_transition, capo_position
 
 
 if __name__ == "__main__":
@@ -40,5 +42,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     image_path = sys.argv[1]
-    prediction = predict(image_path)
-    print(f"Predicted tablature: {prediction}")
+    tablature, in_transition, capo_position = predict(image_path)
+    print(f"Predicted tablature: {tablature}")
+    print(f"Predicted inTransition: {in_transition}")
+    print(f"Predicted capoPosition: {capo_position}")

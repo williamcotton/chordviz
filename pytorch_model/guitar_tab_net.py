@@ -11,7 +11,7 @@ class GuitarTabNet(nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         # Two fully connected (dense) layers with 128 and 6 neurons, respectively.
         self.fc1 = nn.Linear(64 * 32 * 32, 128)
-        self.fc2 = nn.Linear(128, 6)
+        self.fc2 = nn.Linear(128, 8)
         # ReLU activation function.
         self.relu = nn.ReLU()
 
