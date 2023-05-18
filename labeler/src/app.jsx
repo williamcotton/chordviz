@@ -76,6 +76,21 @@ function fetchLabeledImageByFilename(filename) {
   return fetch(`/label/${filename}`).then((response) => response.json());
 }
 
+function fetchPredictionByFilename(filename) {
+  return fetch(`http://localhost:3034/predict/${filename}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .catch((e) => {
+      console.error(
+        `There was a problem with the fetch operation: ${e.message}`
+      );
+    });
+}
+
 const onLabel = async ({
   filename,
   chord,
@@ -257,6 +272,17 @@ function Labeler({ onLabel }) {
     []
   );
 
+  const [currentPrediction, setCurrentPrediction] = useState(null);
+
+  useEffect(() => {
+    if (!currentImageFilename) {
+      return;
+    }
+    fetchPredictionByFilename(currentImageFilename).then((prediction) => {
+      return setCurrentPrediction(prediction);
+    });
+  }, [currentImageFilename]);
+
   const labeledImage = currentLabeledImage ? currentLabeledImage[0] : false;
 
   return (
@@ -277,13 +303,30 @@ function Labeler({ onLabel }) {
         <div>
           {labeledImage && (
             <div style={{ marginLeft: 30 }}>
+              <h2>Label</h2>
               <div style={{ fontSize: 40 }}>
                 Capo: {labeledImage.capoPosition}
               </div>
+              <div style={{ fontSize: 40 }}>{labeledImage.tablature}</div>
               <div style={{ fontSize: 40 }}>
                 {labeledImage.chord.toUpperCase()}
               </div>
-              <div style={{ fontSize: 40 }}>{labeledImage.tablature}</div>
+            </div>
+          )}
+        </div>
+        <div>
+          {currentPrediction && (
+            <div style={{ marginLeft: 30 }}>
+              <h2>Prediction</h2>
+              <div style={{ fontSize: 40 }}>
+                Capo: {currentPrediction.capoPosition}
+              </div>
+              <div style={{ fontSize: 40 }}>
+                {currentPrediction.tablature.join(",")}
+              </div>
+              <div style={{ fontSize: 40 }}>
+                {currentPrediction.inTransition ? "In Transition" : ""}
+              </div>
             </div>
           )}
         </div>

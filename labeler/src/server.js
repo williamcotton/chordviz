@@ -10,6 +10,8 @@ const sqlite3 = require("sqlite3").verbose();
 const React = require("react");
 const path = require("path");
 const ReactDOMServer = require("react-dom/server");
+const child_process = require("child_process");
+const cors = require('cors');
 
 require("node-jsx").install();
 
@@ -61,6 +63,8 @@ const appFactory = ({ dbName, port }) => {
 
   app.use(bodyParser.json());
 
+  app.use(cors());
+
   app.get("/", async function (req, res) {
     const html = ReactDOMServer.renderToString(React.createElement(App, null));
     res.send(await template(html));
@@ -94,6 +98,22 @@ const appFactory = ({ dbName, port }) => {
     });
 
     res.json({ success: true });
+  });
+
+  app.get("/predict/:filename", async function (req, res) {
+    const filename = req.params.filename;
+    child_process.exec(`python3 ../pytorch_model/predict.py ../image_data/${filename}`, function (err, stdout, stderr) {
+      if (err) {
+          console.log('err:', err); // log the error
+          res.json({ success: false, error: err });
+      } else {
+          let prediction = stdout.split('\n'); // splitting stdout by newline
+          let tablature = prediction[0].split(': ')[1];
+          let inTransition = prediction[1].split(': ')[1] === 'True' ? true : false; // Converting string to boolean
+          let capoPosition = parseInt(prediction[2].split(': ')[1]); // Converting string to int
+          res.json({ success: true, tablature: tablature, inTransition: inTransition, capoPosition: capoPosition });
+      }
+    });
   });
 
   const server = app.listen(port, function () {
