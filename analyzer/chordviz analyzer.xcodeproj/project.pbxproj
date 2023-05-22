@@ -14,7 +14,7 @@
 		DA971351288B0107006813B2 /* chordviz_analyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA971350288B0107006813B2 /* chordviz_analyzerTests.swift */; };
 		DA97135B288B0107006813B2 /* chordviz_analyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97135A288B0107006813B2 /* chordviz_analyzerUITests.swift */; };
 		DA97135D288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97135C288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift */; };
-		DAA674812A17F52500395FF7 /* trained_guitar_tab_net.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = DAA674802A17F52500395FF7 /* trained_guitar_tab_net.mlmodel */; };
+		DAF49C452A1802E30037BBEC /* trained_guitar_tab_net.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = DAF49C442A1802E30037BBEC /* trained_guitar_tab_net.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +45,7 @@
 		DA971356288B0107006813B2 /* chordviz analyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "chordviz analyzerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA97135A288B0107006813B2 /* chordviz_analyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chordviz_analyzerUITests.swift; sourceTree = "<group>"; };
 		DA97135C288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chordviz_analyzerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		DAA674802A17F52500395FF7 /* trained_guitar_tab_net.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = trained_guitar_tab_net.mlmodel; path = ../../trained_guitar_tab_net.mlmodel; sourceTree = "<group>"; };
+		DAF49C442A1802E30037BBEC /* trained_guitar_tab_net.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = trained_guitar_tab_net.mlmodel; path = ../../trained_guitar_tab_net.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,7 @@
 			children = (
 				DA97133F288B0104006813B2 /* chordviz_analyzerApp.swift */,
 				DA971341288B0104006813B2 /* ContentView.swift */,
-				DAA674802A17F52500395FF7 /* trained_guitar_tab_net.mlmodel */,
+				DAF49C442A1802E30037BBEC /* trained_guitar_tab_net.mlmodel */,
 				DA971343288B0106006813B2 /* Assets.xcassets */,
 				DA971345288B0106006813B2 /* Preview Content */,
 			);
@@ -262,7 +262,7 @@
 			files = (
 				DA971342288B0104006813B2 /* ContentView.swift in Sources */,
 				DA971340288B0104006813B2 /* chordviz_analyzerApp.swift in Sources */,
-				DAA674812A17F52500395FF7 /* trained_guitar_tab_net.mlmodel in Sources */,
+				DAF49C452A1802E30037BBEC /* trained_guitar_tab_net.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,8 +428,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -458,8 +458,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

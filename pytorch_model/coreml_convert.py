@@ -13,7 +13,18 @@ traced_model = torch.jit.trace(torch_model, example_input)
 out = traced_model(example_input)
 
 # Convert the traced model to Core ML format.
-model = ct.convert(traced_model, inputs=[ct.TensorType(shape=example_input.shape)])
+model = ct.convert(
+    traced_model,
+    inputs=[
+        ct.ImageType(
+            name="input",
+            shape=(1, 1, 128, 128),
+            scale=1 / 255.0,
+            bias=0,
+            color_layout="G",
+        )
+    ],
+)
 
 # Save the converted model.
 model.save("trained_guitar_tab_net.mlmodel")
