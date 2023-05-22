@@ -132,28 +132,45 @@ struct CameraView: UIViewControllerRepresentable {
                 return
             }
 
-            let ciImage = CIImage(cvImageBuffer: imageBuffer)
+            var ciImage = CIImage(cvImageBuffer: imageBuffer)
             let context = CIContext()
-            let cropRect = CIVector(x: 310, y: 70, z: 330, w: 290) // Define crop rectangle
-            var cgImage: CGImage? = nil
+            
+            print("CIImage Original Width: \(ciImage.extent.width)")
+            print("CIImage Original Height: \(ciImage.extent.height)")
+            
+            // Resize image
+            let targetWidth: CGFloat = 640
+            let targetHeight: CGFloat = 360
 
-            // Apply cropping filter
-            if let filter = CIFilter(name: "CICrop") {
-                filter.setValue(ciImage, forKey: kCIInputImageKey)
-                filter.setValue(cropRect, forKey: "inputRectangle")
-                if let outputImage = filter.outputImage {
-                    cgImage = context.createCGImage(outputImage, from: outputImage.extent)
-                }
-            }
+            // Compute the scale factor
+            let scale = min(targetWidth / ciImage.extent.width, targetHeight / ciImage.extent.height)
+            
+            print("Computed Scale: \(scale)")
+            
+            let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
+            ciImage = ciImage.transformed(by: scaleTransform)
+            
+            print("Resized CIImage Width: \(ciImage.extent.width)")
+            print("Resized CIImage Height: \(ciImage.extent.height)")
 
-            guard let croppedCGImage = cgImage,
+            let cropRect = CGRect(x: 310, y: 70, width: 330, height: 290)
+            ciImage = ciImage.cropped(to: cropRect)
+
+            // Rotate the image after cropping
+            let rotateTransform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
+            ciImage = ciImage.transformed(by: rotateTransform)
+            
+            print("Rotated CIImage Width: \(ciImage.extent.width)")
+            print("Rotated CIImage Height: \(ciImage.extent.height)")
+            
+            guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent),
                 // Resize and convert to grayscale
-                let resizedImage = UIImage(cgImage: croppedCGImage).resized(to: CGSize(width: 128, height: 128)),
+                let resizedImage = UIImage(cgImage: cgImage).resized(to: CGSize(width: 128, height: 128)),
                 let grayscaleImage = resizedImage.grayscale(),
                 let grayscaleCgImage = grayscaleImage.cgImage else { return }
             
             // Convert CGImage to UIImage
-            let croppedUIImage = UIImage(cgImage: croppedCGImage)
+            let croppedUIImage = UIImage(cgImage: cgImage)
 
             // Convert UIImage to Image
             let croppedImage = Image(uiImage: croppedUIImage)
@@ -188,7 +205,6 @@ struct CameraView: UIViewControllerRepresentable {
                 print("Failed to perform image request: \(error)")
             }
         }
-
 
         // Convert CGImage to CVPixelBuffer
         private func pixelBuffer(from image: CGImage) -> CVPixelBuffer {
