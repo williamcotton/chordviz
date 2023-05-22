@@ -135,9 +135,6 @@ struct CameraView: UIViewControllerRepresentable {
             var ciImage = CIImage(cvImageBuffer: imageBuffer)
             let context = CIContext()
             
-            print("CIImage Original Width: \(ciImage.extent.width)")
-            print("CIImage Original Height: \(ciImage.extent.height)")
-            
             // Resize image
             let targetWidth: CGFloat = 640
             let targetHeight: CGFloat = 360
@@ -145,23 +142,25 @@ struct CameraView: UIViewControllerRepresentable {
             // Compute the scale factor
             let scale = min(targetWidth / ciImage.extent.width, targetHeight / ciImage.extent.height)
             
-            print("Computed Scale: \(scale)")
-            
             let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
             ciImage = ciImage.transformed(by: scaleTransform)
             
-            print("Resized CIImage Width: \(ciImage.extent.width)")
-            print("Resized CIImage Height: \(ciImage.extent.height)")
+            /*
+             In Python's OpenCV, the origin (0,0) is at the top-left corner of the image. The x-coordinates increase as you go right and the y-coordinates increase as you go down.
 
-            let cropRect = CGRect(x: 310, y: 70, width: 330, height: 290)
+             However, in Swift's Core Image, the origin (0,0) is at the bottom-left corner of the image. The x-coordinates increase as you go right and the y-coordinates increase as you go up.
+             */
+
+            // Assuming the original height is available as `originalHeight
+            let originalHeight = ciImage.extent.height
+            let y_adjusted = originalHeight - 70 - 290
+
+            let cropRect = CGRect(x: 310, y: y_adjusted, width: 330, height: 290)
             ciImage = ciImage.cropped(to: cropRect)
 
             // Rotate the image after cropping
             let rotateTransform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
             ciImage = ciImage.transformed(by: rotateTransform)
-            
-            print("Rotated CIImage Width: \(ciImage.extent.width)")
-            print("Rotated CIImage Height: \(ciImage.extent.height)")
             
             guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent),
                 // Resize and convert to grayscale
