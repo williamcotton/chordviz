@@ -12,18 +12,83 @@ import Vision
 
 struct ContentView: View {
     @State private var displayImage: Image = Image(systemName: "photo")
+    @State private var selectedTab = 0
     
     var body: some View {
-        ZStack {
-            CameraView(displayImage: $displayImage)
+        VStack {
+            Spacer()
+            
+            if selectedTab == 0 {
+                ZStack {
+                    CameraView(displayImage: $displayImage)
+                    VStack {
+                        displayImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: UIScreen.main.bounds.width * 0.5)
+                            .padding(.top, 50)
+                        Spacer()
+                    }
+                }
+            } else if selectedTab == 1 {
+                TempView(number: "2")
+            } else if selectedTab == 2 {
+                TempView(number: "3")
+            } else if selectedTab == 3 {
+                TempView(number: "4")
+            } else if selectedTab == 4 {
+                TempView(number: "5")
+            }
+            
+            HStack {
+                ForEach(0..<5) { index in
+                    Button(action: {
+                        self.selectedTab = index
+                    }) {
+                        VStack {
+                            Image(systemName: "\(index+1).circle")
+                            Text("View \(index+1)")
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+            }
+            .frame(height: 50)
+            .background(Color.secondary)
+        }
+    }
+}
+
+struct TempView: View {
+    var number: String
+    var body: some View {
+        if number == "2" {
             VStack {
-                displayImage
+                Image("capo_0_shape_G_frame_00022")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: UIScreen.main.bounds.width * 0.5)
-                    .padding(.top, 50)
-                Spacer()
+                    .padding()
+                Button(action: {
+                    // TODO: Call your prediction function here
+                    print("Prediction button was pressed.")
+                }) {
+                    Text("Predict")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Text("Predicted tablature: []") // TODO: Update this with the actual prediction
+                    .padding(.top)
+                Text("Predicted inTransition: ") // TODO: Update this with the actual prediction
+                Text("Predicted capoPosition: ") // TODO: Update this with the actual prediction
             }
+        } else {
+            Text(number)
+                .font(.largeTitle)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                .background(Color.gray)
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }
@@ -159,8 +224,8 @@ struct CameraView: UIViewControllerRepresentable {
             ciImage = ciImage.cropped(to: cropRect)
 
             // Rotate the image after cropping
-            let rotateTransform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
-            ciImage = ciImage.transformed(by: rotateTransform)
+//            let rotateTransform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
+//            ciImage = ciImage.transformed(by: rotateTransform)
             
             guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent),
                 // Resize and convert to grayscale

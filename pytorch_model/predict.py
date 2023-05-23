@@ -6,7 +6,7 @@ from guitar_tab_net import GuitarTabNet
 
 # Load the trained model
 model = GuitarTabNet()
-model.load_state_dict(torch.load("../trained_guitar_tab_net.pth"))
+model.load_state_dict(torch.load("./trained_guitar_tab_net.pth"))
 model.eval()
 
 
