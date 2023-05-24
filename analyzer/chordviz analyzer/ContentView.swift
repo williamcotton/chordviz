@@ -30,19 +30,21 @@ struct ContentView: View {
             Spacer()
             
             if selectedTab == 0 {
-                ZStack {
-                    CameraView(trainedModel: self.$trainedModel, displayImage: $displayImage)
-                    VStack {
-                        displayImage
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: UIScreen.main.bounds.width * 0.5)
-                            .padding(.top, 50)
-                        Spacer()
-                    }
-                }
-            } else if selectedTab == 1 {
+//                ZStack {
+//                    CameraView(trainedModel: self.$trainedModel, displayImage: $displayImage)
+//                    VStack {
+//                        displayImage
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(width: UIScreen.main.bounds.width * 0.5)
+//                            .padding(.top, 50)
+//                        Spacer()
+//                    }
+//                }
                 PredictView(trainedModel: self.$trainedModel)
+            } else if selectedTab == 1 {
+                TempView(number: "2")
+//                PredictView(trainedModel: self.$trainedModel)
             } else if selectedTab == 2 {
                 TempView(number: "3")
             } else if selectedTab == 3 {

@@ -34,10 +34,13 @@ struct PredictView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            Text("Predicted tablature: []") // TODO: Update this with the actual prediction
-                .padding(.top)
-            Text("Predicted inTransition: ") // TODO: Update this with the actual prediction
-            Text("Predicted capoPosition: ") // TODO: Update this with the actual prediction
         }
     }
 }
+
+/*
+ python pytorch_model/predict.py image_data/capo_0_shape_G_frame_00022.jpg
+ Predicted tablature: [3, 2, 0, 0, 3, 3]
+ Predicted inTransition: False
+ Predicted capoPosition: 0
+ */
