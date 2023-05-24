@@ -22,7 +22,13 @@ def load_data(image_dir, db_file):
             print(f"Warning: No tablature found for {filename}. Skipping this file.")
             continue
         tablature_str, in_transition, capo_position = fetched_row
-        tablature = [int(x) if x != "X" else (-1) for x in tablature_str.split(",")]
+        try:
+            tablature = [int(x) if x != "X" else (-1) for x in tablature_str.split(",")]
+        except ValueError:
+            print(
+                f"Warning: Invalid tablature found for {filename}. Skipping this file."
+            )
+            raise
         label = tablature
         label.append(int(in_transition))
         label.append(capo_position)
