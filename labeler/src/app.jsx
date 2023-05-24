@@ -10,28 +10,38 @@ const X = "X";
 const chordShapeTablature = {
   g: {
     1: [3, 2, 0, 0, 3, 3], // G
+    2: [0, 0, 2, 2, 1, 0], // Am
     4: [X, 3, 2, 0, 1, 0], // C
     5: [X, 0, 0, 2, 3, 2], // D
+    6: [0, 2, 2, 0, 0, 0], // Em
   },
   c: {
     1: [X, 3, 2, 0, 1, 0], // C
+    2: [X, 0, 0, 2, 3, 1], // Dm
     4: [1, 3, 3, 2, 1, 1], // F
     5: [3, 2, 0, 0, 3, 3], // G
+    6: [0, 0, 2, 2, 1, 0], // Am
   },
   d: {
     1: [X, 0, 0, 2, 3, 2], // D
+    2: [0, 2, 2, 0, 0, 0], // Em
     4: [3, 2, 0, 0, 3, 3], // G
     5: [0, 0, 2, 2, 2, 0], // A
+    6: [X, 2, 4, 4, 3, 2], // Bm
   },
   e: {
     1: [0, 2, 2, 1, 0, 0], // E
+    2: [2, 4, 4, 2, 2, 2], // F#m
     4: [0, 0, 2, 2, 2, X], // A
     5: [2, 2, 4, 4, 4, X], // B
+    6: [X, 4, 6, 6, 5, 4], // C#m
   },
   a: {
     1: [0, 0, 2, 2, 2, 0], // A
+    2: [X, 2, 4, 4, 3, 2], // Bm
     4: [X, 0, 0, 2, 3, 2], // D
     5: [0, 2, 2, 1, 0, 0], // E
+    6: [2, 4, 4, 2, 2, 2], // F#m
   },
 };
 
@@ -159,6 +169,7 @@ function Labeler({ onLabel }) {
   const [images, setImages] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
   const [currentLabeledImage, setCurrentLabeledImage] = useState(null);
+  const [imageInput, setImageInput] = useState("");
 
   const currentImageFilename = images[currentImage] || "";
 
@@ -205,6 +216,15 @@ function Labeler({ onLabel }) {
     setTablature(tablature);
   }
 
+  function setChordii() {
+    const tablature = tablatureInCapoPosition(
+      chordShapeTablature[chordShape][2],
+      capoPosition
+    );
+    setChord(chordFromCapoPositionAndChordShape(2, capoPosition, chordShape));
+    setTablature(tablature);
+  }
+
   function setChordIV() {
     const tablature = tablatureInCapoPosition(
       chordShapeTablature[chordShape][4],
@@ -223,11 +243,22 @@ function Labeler({ onLabel }) {
     setTablature(tablature);
   }
 
+  function setChordvi() {
+    const tablature = tablatureInCapoPosition(
+      chordShapeTablature[chordShape][6],
+      capoPosition
+    );
+    setChord(chordFromCapoPositionAndChordShape(9, capoPosition, chordShape));
+    setTablature(tablature);
+  }
+
   useEffect(() => {
     hotkeys.unbind();
     hotkeys("1", setChordI);
+    hotkeys("2", setChordii);
     hotkeys("4", setChordIV);
     hotkeys("5", setChordV);
+    hotkeys("6", setChordvi);
     hotkeys("t", toggleInTransition);
     hotkeys("left", previousCurrentImage);
     hotkeys("right", nextCurrentImage);
@@ -284,6 +315,16 @@ function Labeler({ onLabel }) {
   }, [currentImageFilename]);
 
   const labeledImage = currentLabeledImage ? currentLabeledImage[0] : false;
+
+  const handleSetImage = () => {
+    const imageIndex = images.indexOf(imageInput);
+    if (imageIndex >= 0) {
+      setCookie("currentImage", imageIndex);
+      setCurrentImage(imageIndex);
+    } else {
+      alert(`Image with filename "${imageInput}" not found.`);
+    }
+  };
 
   return (
     <div>
@@ -392,12 +433,20 @@ function Labeler({ onLabel }) {
             <td>Set chord I</td>
           </tr>
           <tr>
+            <td>2</td>
+            <td>Set chord ii</td>
+          </tr>
+          <tr>
             <td>4</td>
             <td>Set chord IV</td>
           </tr>
           <tr>
             <td>5</td>
             <td>Set chord V</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Set chord vi</td>
           </tr>
           <tr>
             <td>t</td>
@@ -417,6 +466,20 @@ function Labeler({ onLabel }) {
           </tr>
         </tbody>
       </table>
+      <div>
+        <label>
+          Jump to Image Filename:
+          <input
+            type="text"
+            value={imageInput}
+            onChange={(event) => setImageInput(event.target.value)}
+            style={{ width: "300px" }}
+          />
+          <button type="button" onClick={handleSetImage}>
+            Set Image
+          </button>
+        </label>
+      </div>
     </div>
   );
 }
