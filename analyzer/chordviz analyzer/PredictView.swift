@@ -12,12 +12,23 @@ import Vision
 
 struct PredictView: View {
     @Binding var trainedModel: VNCoreMLModel?
+    
+    // State variables for the prediction results
+    @State private var predictedTablature: [Int] = []
+    @State private var predictedInTransition: Bool = false
+    @State private var predictedCapoPosition: Int = 0
+
     var body: some View {
         VStack {
             Image("capo_0_shape_G_frame_00022")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding()
+            
+            Text("Predicted tablature: \(predictedTablature.map { String($0) }.joined(separator: ", "))")
+            Text("Predicted inTransition: \(predictedInTransition ? "True" : "False")")
+            Text("Predicted capoPosition: \(predictedCapoPosition)")
+            
             Button(action: {
                 guard let model = self.trainedModel,
                       let image = UIImage(named: "capo_0_shape_G_frame_00022"),
@@ -26,7 +37,12 @@ struct PredictView: View {
                     return
                 }
                 
-                predict(cgImage: cgImage, model: model)
+                let prediction = predict(cgImage: cgImage, model: model)
+                
+                // Update the prediction result state variables
+                predictedTablature = Array(prediction.prefix(6))
+                predictedInTransition = prediction[6] == 1
+                predictedCapoPosition = prediction[7]
             }) {
                 Text("Predict")
                     .padding()
@@ -37,10 +53,3 @@ struct PredictView: View {
         }
     }
 }
-
-/*
- python pytorch_model/predict.py image_data/capo_0_shape_G_frame_00022.jpg
- Predicted tablature: [3, 2, 0, 0, 3, 3]
- Predicted inTransition: False
- Predicted capoPosition: 0
- */

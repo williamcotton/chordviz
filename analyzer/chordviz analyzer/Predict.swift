@@ -10,63 +10,33 @@ import SwiftUI
 import CoreML
 import Vision
 
-func predict(cgImage: CGImage, model: VNCoreMLModel) {
-//    guard let resizedImage = UIImage(cgImage: cgImage).resized(to: CGSize(width: 128, height: 128)) else {
-//        print("Image resizing failed.")
-//        return
-//    }
-//
-//    guard let grayscaleImage = resizedImage.grayscale(),
-//          let grayscaleCgImage = grayscaleImage.cgImage else {
-//        print("Grayscale conversion failed.")
-//        return
-//    }
-    
+func predict(cgImage: CGImage, model: VNCoreMLModel) -> [Int] {
     guard let grayscaleCgImage = resizeAndGrayscale(cgImage: cgImage, to: CGSize(width: 128, height: 128)) else {
         print("Failed to resize and grayscale image.")
-        return
+        return []
     }
     
     let pixelBuffer = pixelBuffer(from: grayscaleCgImage)
-    print("Pixel buffer width: \(CVPixelBufferGetWidth(pixelBuffer)), height: \(CVPixelBufferGetHeight(pixelBuffer))")
     
-    // Print the first 10 pixel values
-    CVPixelBufferLockBaseAddress(pixelBuffer, [])
-    let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer)
-    let buffer = baseAddress!.assumingMemoryBound(to: UInt8.self)
-    for i in 0..<10 {
-        print(buffer[i])
-    }
-    CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
-
+    var outputValues: [Int] = []
+    
     let request = VNCoreMLRequest(model: model) { request, error in
         if let error = error {
             print("Failed to perform request: \(error)")
             return
         }
 
-        guard let results = request.results else {
+        guard let results = request.results as? [VNCoreMLFeatureValueObservation],
+              let firstResult = results.first,
+              let multiArray = firstResult.featureValue.multiArrayValue else {
             print("No results found.")
             return
         }
 
-        // Print the results
-        for result in results {
-            print("Result type: \(type(of: result))")
-            print("Result: \(result)")
-        }
-
-        if let classificationResults = results as? [VNClassificationObservation] {
-            for classification in classificationResults {
-                print("Classification identifier: \(classification.identifier)")
-                print("Classification confidence: \(classification.confidence)")
-            }
-        }
-
-        if let featureValueResults = results as? [VNCoreMLFeatureValueObservation] {
-            for featureValue in featureValueResults {
-                print("Feature Value: \(featureValue.featureValue)")
-            }
+        // Convert the float values to integers and append them to the outputValues array
+        for i in 0..<multiArray.count {
+            let value = multiArray[i].floatValue
+            outputValues.append(Int(round(value)))
         }
     }
 
@@ -75,60 +45,50 @@ func predict(cgImage: CGImage, model: VNCoreMLModel) {
         try handler.perform([request])
     } catch {
         print("Failed to perform image request: \(error)")
+        return []
     }
+    
+    return outputValues
 }
+
 
 // Convert CGImage to CVPixelBuffer
 func pixelBuffer(from image: CGImage) -> CVPixelBuffer {
     let imageWidth = 128
     let imageHeight = 128
 
-    // Create pixel buffer
-    var pixelBuffer: CVPixelBuffer?
-    let attributes: [CFString: Any] = [
-        kCVPixelBufferCGImageCompatibilityKey: true as CFBoolean,
-        kCVPixelBufferCGBitmapContextCompatibilityKey: true as CFBoolean,
-        kCVPixelBufferWidthKey: imageWidth as CFNumber,
-        kCVPixelBufferHeightKey: imageHeight as CFNumber,
-        kCVPixelBufferPixelFormatTypeKey: kCVPixelFormatType_OneComponent8 as CFNumber
-    ]
-    let status = CVPixelBufferCreate(kCFAllocatorDefault, imageWidth, imageHeight, kCVPixelFormatType_OneComponent8, attributes as CFDictionary, &pixelBuffer)
-    guard status == kCVReturnSuccess else {
-        fatalError("Error: could not create pixel buffer")
-    }
-    
-    // Lock the pixel buffer
-    CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+    var pixelBuffer : CVPixelBuffer? = nil
+    let rgbColorSpace = CGColorSpaceCreateDeviceGray()
+    let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
+    let context = CGContext(data: nil, width: Int(imageWidth), height: Int(imageHeight), bitsPerComponent: 8, bytesPerRow: imageWidth, space: rgbColorSpace, bitmapInfo: bitmapInfo.rawValue)
 
-    // Prepare for drawing
-    let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
-    guard let context = CGContext(
-        data: pixelData,
-        width: imageWidth,
-        height: imageHeight,
-        bitsPerComponent: 8,
-        bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!),
-        space: CGColorSpaceCreateDeviceGray(),
-        bitmapInfo: CGImageAlphaInfo.none.rawValue
-    ) else {
-        fatalError("Error: could not create CGContext")
+    guard let context = context else {
+        fatalError("Error: could not create CGBitmapContext")
     }
-    
-    // Draw the image
-    UIGraphicsPushContext(context)
-    context.translateBy(x: 0, y: CGFloat(imageHeight))
-    context.scaleBy(x: 1, y: -1)
+
     context.draw(image, in: CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight))
-    UIGraphicsPopContext()
-    
-    // Normalize pixel values to [0, 1]
-    let pixelBase = CVPixelBufferGetBaseAddress(pixelBuffer!)!.assumingMemoryBound(to: UInt8.self)
-    let pixelCount = imageWidth * imageHeight
-    for i in 0 ..< pixelCount {
-        let pixelValue = Int(pixelBase[i])
-        let normalizedPixelValue = Float(pixelValue) / 255.0
-        pixelBase[i] = UInt8(normalizedPixelValue * 255.0)
+
+    guard let newCgImage = context.makeImage() else {
+        fatalError("Error: could not create CGImage from CGBitmapContext")
     }
+
+    let status = CVPixelBufferCreate(kCFAllocatorDefault, imageWidth, imageHeight, kCVPixelFormatType_OneComponent8, nil, &pixelBuffer)
+
+    guard status == kCVReturnSuccess else {
+        fatalError("Error: could not create new pixel buffer")
+    }
+
+    CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+    let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
+
+    let grayColorSpace = CGColorSpaceCreateDeviceGray()
+    let newContext = CGContext(data: pixelData, width: Int(imageWidth), height: Int(imageHeight), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: grayColorSpace, bitmapInfo: CGImageAlphaInfo.none.rawValue)
+
+    guard let unwrappedContext = newContext else {
+        fatalError("Error: could not create CGBitmapContext")
+    }
+
+    unwrappedContext.draw(newCgImage, in: CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight))
     
     // Unlock the pixel buffer
     CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
