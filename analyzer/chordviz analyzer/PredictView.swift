@@ -37,12 +37,12 @@ struct PredictView: View {
                     return
                 }
                 
-                let prediction = predict(cgImage: cgImage, model: model)
+                let (predictedTablature, predictedInTransition, predictedCapoPosition) = predict(cgImage: cgImage, model: model)
                 
                 // Update the prediction result state variables
-                predictedTablature = Array(prediction.prefix(6))
-                predictedInTransition = prediction[6] == 1
-                predictedCapoPosition = prediction[7]
+                self.predictedTablature = predictedTablature
+                self.predictedInTransition = predictedInTransition
+                self.predictedCapoPosition = predictedCapoPosition
             }) {
                 Text("Predict")
                     .padding()

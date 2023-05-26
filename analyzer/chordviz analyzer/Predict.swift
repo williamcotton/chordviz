@@ -10,10 +10,10 @@ import SwiftUI
 import CoreML
 import Vision
 
-func predict(cgImage: CGImage, model: VNCoreMLModel) -> [Int] {
+func predict(cgImage: CGImage, model: VNCoreMLModel) -> (tablature: [Int], inTransition: Bool, capoPosition: Int) {
     guard let grayscaleCgImage = resizeAndGrayscale(cgImage: cgImage, to: CGSize(width: 128, height: 128)) else {
         print("Failed to resize and grayscale image.")
-        return []
+        return ([], false, 0)
     }
     
     let pixelBuffer = pixelBuffer(from: grayscaleCgImage)
@@ -45,10 +45,14 @@ func predict(cgImage: CGImage, model: VNCoreMLModel) -> [Int] {
         try handler.perform([request])
     } catch {
         print("Failed to perform image request: \(error)")
-        return []
+        return ([], false, 0)
     }
     
-    return outputValues
+    let predictedTablature = Array(outputValues.prefix(6))
+    let predictedInTransition = outputValues[6] == 1
+    let predictedCapoPosition = outputValues[7]
+    
+    return (predictedTablature, predictedInTransition, predictedCapoPosition)
 }
 
 
@@ -94,31 +98,6 @@ func pixelBuffer(from image: CGImage) -> CVPixelBuffer {
     CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
     
     return pixelBuffer!
-}
-
-extension UIImage {
-    func resized(to size: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        self.draw(in: CGRect(origin: .zero, size: size))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-    
-    func grayscale() -> UIImage? {
-        let context = CIContext()
-        guard let filter = CIFilter(name: "CIPhotoEffectMono"),
-              let input = CIImage(image: self) else { return nil }
-        filter.setValue(input, forKey: kCIInputImageKey)
-        guard let output = filter.outputImage else { return nil }
-        
-        let outputCropped = output.cropped(to: input.extent)
-        
-        guard let outputCGImage = context.createCGImage(outputCropped, from: outputCropped.extent) else { return nil }
-        
-        return UIImage(cgImage: outputCGImage)
-    }
-
 }
 
 func resizeAndGrayscale(cgImage: CGImage, to size: CGSize) -> CGImage? {

@@ -150,13 +150,13 @@ struct CameraView: UIViewControllerRepresentable {
                 self.displayImage.wrappedValue = croppedImage
             }
             
-            let prediction = predict(cgImage: cgImage, model: model)
+            let (predictedTablature, predictedInTransition, predictedCapoPosition) = predict(cgImage: cgImage, model: model)
 
             // Update the prediction result state variables on the main thread
             DispatchQueue.main.async {
-                self.predictedTablature.wrappedValue = Array(prediction.prefix(6))
-                self.predictedInTransition.wrappedValue = prediction[6] == 1
-                self.predictedCapoPosition.wrappedValue = prediction[7]
+                self.predictedTablature.wrappedValue = predictedTablature
+                self.predictedInTransition.wrappedValue = predictedInTransition
+                self.predictedCapoPosition.wrappedValue = predictedCapoPosition
             }
         }
     }

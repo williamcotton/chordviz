@@ -14,10 +14,10 @@
 		DA971351288B0107006813B2 /* chordviz_analyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA971350288B0107006813B2 /* chordviz_analyzerTests.swift */; };
 		DA97135B288B0107006813B2 /* chordviz_analyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97135A288B0107006813B2 /* chordviz_analyzerUITests.swift */; };
 		DA97135D288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97135C288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift */; };
-		DAF49C452A1802E30037BBEC /* trained_guitar_tab_net.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = DAF49C442A1802E30037BBEC /* trained_guitar_tab_net.mlmodel */; };
 		DAF49C492A1E153A0037BBEC /* Predict.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF49C482A1E153A0037BBEC /* Predict.swift */; };
 		DAF49C4B2A1E15970037BBEC /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF49C4A2A1E15970037BBEC /* CameraView.swift */; };
 		DAF49C4D2A1E15DD0037BBEC /* PredictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF49C4C2A1E15DD0037BBEC /* PredictView.swift */; };
+		DAF49C4F2A20FA400037BBEC /* trained_guitar_tab_net.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = DAF49C4E2A20FA400037BBEC /* trained_guitar_tab_net.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,10 +48,10 @@
 		DA971356288B0107006813B2 /* chordviz analyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "chordviz analyzerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA97135A288B0107006813B2 /* chordviz_analyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chordviz_analyzerUITests.swift; sourceTree = "<group>"; };
 		DA97135C288B0107006813B2 /* chordviz_analyzerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chordviz_analyzerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		DAF49C442A1802E30037BBEC /* trained_guitar_tab_net.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = trained_guitar_tab_net.mlmodel; path = ../../trained_guitar_tab_net.mlmodel; sourceTree = "<group>"; };
 		DAF49C482A1E153A0037BBEC /* Predict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predict.swift; sourceTree = "<group>"; };
 		DAF49C4A2A1E15970037BBEC /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		DAF49C4C2A1E15DD0037BBEC /* PredictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictView.swift; sourceTree = "<group>"; };
+		DAF49C4E2A20FA400037BBEC /* trained_guitar_tab_net.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = trained_guitar_tab_net.mlmodel; path = ../../trained_guitar_tab_net.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +106,8 @@
 				DA971341288B0104006813B2 /* ContentView.swift */,
 				DAF49C4C2A1E15DD0037BBEC /* PredictView.swift */,
 				DAF49C4A2A1E15970037BBEC /* CameraView.swift */,
+				DAF49C4E2A20FA400037BBEC /* trained_guitar_tab_net.mlmodel */,
 				DAF49C482A1E153A0037BBEC /* Predict.swift */,
-				DAF49C442A1802E30037BBEC /* trained_guitar_tab_net.mlmodel */,
 				DA971343288B0106006813B2 /* Assets.xcassets */,
 				DA971345288B0106006813B2 /* Preview Content */,
 			);
@@ -271,8 +271,8 @@
 			files = (
 				DAF49C4D2A1E15DD0037BBEC /* PredictView.swift in Sources */,
 				DA971342288B0104006813B2 /* ContentView.swift in Sources */,
+				DAF49C4F2A20FA400037BBEC /* trained_guitar_tab_net.mlmodel in Sources */,
 				DA971340288B0104006813B2 /* chordviz_analyzerApp.swift in Sources */,
-				DAF49C452A1802E30037BBEC /* trained_guitar_tab_net.mlmodel in Sources */,
 				DAF49C4B2A1E15970037BBEC /* CameraView.swift in Sources */,
 				DAF49C492A1E153A0037BBEC /* Predict.swift in Sources */,
 			);

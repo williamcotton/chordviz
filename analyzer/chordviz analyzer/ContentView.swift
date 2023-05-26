@@ -46,24 +46,26 @@ struct ContentView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: UIScreen.main.bounds.width * 0.5)
-                            .padding(.top, 50)
+                            .padding(.top, 0)
                         Spacer()
                     }
-                    VStack {
-                        Spacer()
-                        Text("Predicted tablature: \(predictedTablature.map { String($0) }.joined(separator: ", "))")
+                    VStack(alignment: .leading) {
+                        Text("tablature: \(predictedTablature.map { String($0) }.joined(separator: ", "))")
                             .foregroundColor(.green)
                             .font(.title)
                             .bold()
-                        Text("Predicted inTransition: \(predictedInTransition ? "True" : "False")")
+                        Text("inTransition: \(predictedInTransition ? "True" : "False")")
                             .foregroundColor(.green)
                             .font(.title)
                             .bold()
-                        Text("Predicted capoPosition: \(predictedCapoPosition)")
+                        Text("capoPosition: \(predictedCapoPosition)")
                             .foregroundColor(.green)
                             .font(.title)
                             .bold()
+                    
                     }
+                    .background(Color.black.opacity(0.5))
+                    .padding(.top, 10)
                 }
             } else if selectedTab == 1 {
                 PredictView(trainedModel: self.$trainedModel)
