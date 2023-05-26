@@ -14,6 +14,9 @@ struct ContentView: View {
     @State private var displayImage: Image = Image(systemName: "photo")
     @State private var selectedTab = 0
     @State var trainedModel: VNCoreMLModel?
+    @State private var predictedTablature: [Int] = []
+    @State private var predictedInTransition: Bool = false
+    @State private var predictedCapoPosition: Int = 0
 
     init() {
         do {
@@ -30,21 +33,40 @@ struct ContentView: View {
             Spacer()
             
             if selectedTab == 0 {
-//                ZStack {
-//                    CameraView(trainedModel: self.$trainedModel, displayImage: $displayImage)
-//                    VStack {
-//                        displayImage
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(width: UIScreen.main.bounds.width * 0.5)
-//                            .padding(.top, 50)
-//                        Spacer()
-//                    }
-//                }
-                PredictView(trainedModel: self.$trainedModel)
+                ZStack {
+                    CameraView(
+                        trainedModel: self.$trainedModel,
+                        displayImage: $displayImage,
+                        predictedTablature: $predictedTablature,
+                        predictedInTransition: $predictedInTransition,
+                        predictedCapoPosition: $predictedCapoPosition
+                    )
+                    VStack {
+                        displayImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: UIScreen.main.bounds.width * 0.5)
+                            .padding(.top, 50)
+                        Spacer()
+                    }
+                    VStack {
+                        Spacer()
+                        Text("Predicted tablature: \(predictedTablature.map { String($0) }.joined(separator: ", "))")
+                            .foregroundColor(.green)
+                            .font(.title)
+                            .bold()
+                        Text("Predicted inTransition: \(predictedInTransition ? "True" : "False")")
+                            .foregroundColor(.green)
+                            .font(.title)
+                            .bold()
+                        Text("Predicted capoPosition: \(predictedCapoPosition)")
+                            .foregroundColor(.green)
+                            .font(.title)
+                            .bold()
+                    }
+                }
             } else if selectedTab == 1 {
-                TempView(number: "2")
-//                PredictView(trainedModel: self.$trainedModel)
+                PredictView(trainedModel: self.$trainedModel)
             } else if selectedTab == 2 {
                 TempView(number: "3")
             } else if selectedTab == 3 {

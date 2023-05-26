@@ -14,10 +14,21 @@ import Foundation
 struct CameraView: UIViewControllerRepresentable {
     @Binding var trainedModel: VNCoreMLModel?
     @Binding var displayImage: Image
+    @Binding var predictedTablature: [Int]
+    @Binding var predictedInTransition: Bool
+    @Binding var predictedCapoPosition: Int
 
-    init(trainedModel: Binding<VNCoreMLModel?>, displayImage: Binding<Image>) {
+    init(trainedModel: Binding<VNCoreMLModel?>,
+         displayImage: Binding<Image>,
+         predictedTablature: Binding<[Int]>,
+         predictedInTransition: Binding<Bool>,
+         predictedCapoPosition: Binding<Int>) {
+        
         _trainedModel = trainedModel
         _displayImage = displayImage
+        _predictedTablature = predictedTablature
+        _predictedInTransition = predictedInTransition
+        _predictedCapoPosition = predictedCapoPosition
     }
 
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -63,16 +74,30 @@ struct CameraView: UIViewControllerRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self, displayImage: $displayImage)
+        Coordinator(self,
+                    displayImage: $displayImage,
+                    predictedTablature: $predictedTablature,
+                    predictedInTransition: $predictedInTransition,
+                    predictedCapoPosition: $predictedCapoPosition)
     }
 
     class Coordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         var parent: CameraView
         var displayImage: Binding<Image>
+        var predictedTablature: Binding<[Int]>
+        var predictedInTransition: Binding<Bool>
+        var predictedCapoPosition: Binding<Int>
 
-        init(_ parent: CameraView, displayImage: Binding<Image>) {
+        init(_ parent: CameraView,
+             displayImage: Binding<Image>,
+             predictedTablature: Binding<[Int]>,
+             predictedInTransition: Binding<Bool>,
+             predictedCapoPosition: Binding<Int>) {
             self.parent = parent
             self.displayImage = displayImage
+            self.predictedTablature = predictedTablature
+            self.predictedInTransition = predictedInTransition
+            self.predictedCapoPosition = predictedCapoPosition
         }
         
         func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -125,7 +150,14 @@ struct CameraView: UIViewControllerRepresentable {
                 self.displayImage.wrappedValue = croppedImage
             }
             
-            predict(cgImage: cgImage, model: model)
+            let prediction = predict(cgImage: cgImage, model: model)
+
+            // Update the prediction result state variables on the main thread
+            DispatchQueue.main.async {
+                self.predictedTablature.wrappedValue = Array(prediction.prefix(6))
+                self.predictedInTransition.wrappedValue = prediction[6] == 1
+                self.predictedCapoPosition.wrappedValue = prediction[7]
+            }
         }
     }
 }
