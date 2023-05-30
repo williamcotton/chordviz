@@ -26,7 +26,7 @@ eval_model:
 	python pytorch_model/eval_model.py
 
 predict:
-	python pytorch_model/predict.
+	python pytorch_model/predict.py
 
 convert:
 	python pytorch_model/coreml_convert.py
