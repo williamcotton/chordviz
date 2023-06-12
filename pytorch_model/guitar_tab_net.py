@@ -9,7 +9,7 @@ class GuitarTabNet(nn.Module):
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
         # A max pooling layer that reduces the spatial dimensions by half.
         self.pool = nn.MaxPool2d(2, 2)
-        # Two fully connected (dense) layers with 128 and 6 neurons, respectively.
+        # Two fully connected (dense) layers with 128 and 8 neurons, respectively.
         self.fc1 = nn.Linear(64 * 32 * 32, 128)
         self.fc2 = nn.Linear(128, 8)
         # ReLU activation function.
