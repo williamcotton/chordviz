@@ -69,22 +69,16 @@ struct ContentView: View {
                 }
             } else if selectedTab == 1 {
                 PredictView(trainedModel: self.$trainedModel)
-            } else if selectedTab == 2 {
-                TempView(number: "3")
-            } else if selectedTab == 3 {
-                TempView(number: "4")
-            } else if selectedTab == 4 {
-                TempView(number: "5")
             }
             
             HStack {
-                ForEach(0..<5) { index in
+                ForEach(0..<2) { index in
                     Button(action: {
                         self.selectedTab = index
                     }) {
                         VStack {
                             Image(systemName: "\(index+1).circle")
-                            Text("View \(index+1)")
+                            Text(["Predict", "Test"][index])
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -93,17 +87,6 @@ struct ContentView: View {
             .frame(height: 50)
             .background(Color.white)
         }
-    }
-}
-
-struct TempView: View {
-    var number: String
-    var body: some View {
-        Text(number)
-            .font(.largeTitle)
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-            .background(Color.white)
-            .edgesIgnoringSafeArea(.all)
     }
 }
 
